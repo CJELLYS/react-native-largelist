@@ -31,6 +31,11 @@ export class WaterfallList extends React.PureComponent<WaterfallListType> {
   _shouldUpdateContent = true;
   _scrollView=React.createRef();
 
+  static defaultProps = {
+    initialNumToRender:4,//初始化显示个数
+    viewingArea:1,//可视区域
+  };
+
   constructor(props) {
     super(props);
     this.obtainOffset();
@@ -110,7 +115,7 @@ export class WaterfallList extends React.PureComponent<WaterfallListType> {
             viewport.splice(0, 1);
           }
           viewport.push(top);
-          while (summary.cells.length < viewport.length + 2) summary.cells.push(summary.cells.length);
+          while (summary.cells.length < viewport.length + this.props.initialNumToRender) summary.cells.push(summary.cells.length);
         });
       });
       sumHeight += maxHeight;
@@ -230,6 +235,9 @@ export class WaterfallList extends React.PureComponent<WaterfallListType> {
 
   _onSizeChange = size => {
     this._size = size;
+    if(this.props.viewingArea && this.props.viewingArea > 1){
+      this._size.height = size.height * this.props.viewingArea;
+    }
     if (this._shouldRenderContent()) this.forceUpdate();
   };
 

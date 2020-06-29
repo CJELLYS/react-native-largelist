@@ -91,7 +91,9 @@ export interface WaterfallListType extends SpringScrollViewPropType{
   onNativeContentOffsetExtract?: {
     x: Animated.Value,
     y: Animated.Value
-  }
+  },
+  initialNumToRender?: number,//初始化显示个数 4-10
+  viewingArea?: number,//可视区域 1-2
 }
 
 export interface WaterfallItemType extends WaterfallListType {
